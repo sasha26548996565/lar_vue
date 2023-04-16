@@ -1,6 +1,6 @@
 <template>
     <div>
-        post page
+        tag page
     </div>
 </template>
 
