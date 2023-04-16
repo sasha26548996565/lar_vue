@@ -3,7 +3,7 @@
         <input type="text" v-model="name" class="form-control mb-2" placeholder="name">
         <input type="number" v-model="age" class="form-control mb-2" placeholder="age">
         <input type="text" v-model="job_title" class="form-control mb-2" placeholder="job_title">
-        <input type="button" @click.prevent="update()" class="btn btn-success" value="update">
+        <input type="button" :disabled="!isDisabled" @click.prevent="update()" class="btn btn-success" value="update">
     </div>
 </template>
 
@@ -21,9 +21,9 @@
             getPerson() {
                 axios.get(`/api/persons/show/${this.$route.params.person}`)
                     .then(response => {
-                        this.name = response.data.name;
-                        this.age = response.data.age;
-                        this.job_title = response.data.job_title;
+                        this.name = response.data.data.name;
+                        this.age = response.data.data.age;
+                        this.job_title = response.data.data.job_title;
                     })
             },
             update() {
@@ -35,6 +35,11 @@
         },
         mounted() {
             this.getPerson();
+        },
+        computed: {
+            isDisabled() {
+                return this.name && this.age && this.job_title;
+            }
         }
     }
 </script>

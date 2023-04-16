@@ -20,7 +20,7 @@
             getPerson() {
                 axios.get(`/api/persons/show/${this.$route.params.person}`)
                     .then(response => {
-                        this.person = response.data;
+                        this.person = response.data.data;
                     })
             }
         },

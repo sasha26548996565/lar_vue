@@ -37,7 +37,7 @@
             getPersons() {
                 axios.get('/api/persons')
                     .then(response => {
-                        this.persons = response.data;
+                        this.persons = response.data.data;
                     })
             },
             deletePerson(id) {

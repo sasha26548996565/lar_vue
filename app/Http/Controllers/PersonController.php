@@ -7,30 +7,31 @@ namespace App\Http\Controllers;
 use App\Models\Person;
 use Illuminate\Http\Response;
 use App\Http\Requests\PersonRequest;
-use Illuminate\Database\Eloquent\Collection;
+use App\Http\Resources\PersonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class PersonController extends Controller
 {
-    public function index(): Collection
+    public function index(): JsonResource
     {
-        return Person::all();
+        return PersonResource::collection(Person::all());
     }
 
-    public function show(Person $person): Person
+    public function show(Person $person): PersonResource
     {
-        return $person;
+        return new PersonResource($person);
     }
 
-    public function store(PersonRequest $request): Person
+    public function store(PersonRequest $request): Response
     {
-        $person = Person::create($request->validated());
-        return $person;
+        Person::create($request->validated());
+        return response([]);
     }
 
-    public function update(PersonRequest $request, Person $person): Person
+    public function update(PersonRequest $request, Person $person): Response
     {
         $person->update($request->validated());
-        return $person;
+        return response([]);
     }
 
     public function destroy(Person $person): Response

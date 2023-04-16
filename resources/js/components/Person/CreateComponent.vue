@@ -3,7 +3,7 @@
         <input type="text" v-model="name" class="form-control mb-2" placeholder="name">
         <input type="number" v-model="age" class="form-control mb-2" placeholder="age">
         <input type="text" v-model="job_title" class="form-control mb-2" placeholder="job_title">
-        <input type="button" @click.prevent="create()" class="btn btn-success" value="Add">
+        <input type="button" :disabled="!isDisabled" @click.prevent="create()" class="btn btn-success" value="Add">
     </div>
 </template>
 
@@ -23,6 +23,11 @@
                     .then(response => {
                         router.push({name: 'person.index'})
                     })
+            }
+        },
+        computed: {
+            isDisabled() {
+                return this.name && this.age && this.job_title;
             }
         }
     }
