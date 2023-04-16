@@ -1,10 +1,10 @@
 <template>
     <div class="m-3">
-        <template v-if="this.person">
-            Id: {{ this.person.id }}
-            Name: {{ this.person.name }} <br>
-            Age: {{ this.person.age }} <br>
-            Job title: {{ this.person.job_title }}
+        <template v-if="person">
+            Id: {{ person.id }}
+            Name: {{ person.name }} <br>
+            Age: {{ person.age }} <br>
+            Job title: {{ person.job_title }}
         </template>
     </div>
 </template>
@@ -16,16 +16,13 @@
                 person: null
             }
         },
-        methods: {
-            getPerson() {
-                axios.get(`/api/persons/show/${this.$route.params.person}`)
-                    .then(response => {
-                        this.person = response.data.data;
-                    })
+        mounted() {
+            this.$store.dispatch('getPerson', this.$route.params.person);
+        },
+        computed: {
+            person() {
+                return this.$store.getters.person;
             }
         },
-        mounted() {
-            this.getPerson();
-        }
     }
 </script>
