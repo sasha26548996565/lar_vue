@@ -19,7 +19,7 @@
                     <td>{{ person.age }}</td>
                     <td>{{ person.job_title }}</td>
                     <td><router-link class="btn btn-warning" :to="{name: 'person.edit', params: {person: person.id}}">edit</router-link></td>
-                    <td><a @click.prevent="deletePerson(person.id)" class="btn btn-danger">delete</a></td>
+                    <td><a @click.prevent="$store.dispatch('deletePerson', person.id)" class="btn btn-danger">delete</a></td>
                 </tr>
             </tbody>
         </table>
@@ -28,28 +28,14 @@
 
 <script>
     export default {
-        data() {
-            return {
-                persons: null
-            }
-        },
-        methods: {
-            getPersons() {
-                axios.get('/api/persons')
-                    .then(response => {
-                        this.persons = response.data.data;
-                    })
-            },
-            deletePerson(id) {
-                axios.delete(`/api/persons/delete/${id}`)
-                    .then(response => {
-                        this.getPersons();
-                    })
-            }
-        },
         mounted() {
-            this.getPersons();
+            this.$store.dispatch('getPersons');
         },
+        computed: {
+            persons() {
+                return this.$store.getters.persons;
+            }
+        }
     }
 </script>
 
