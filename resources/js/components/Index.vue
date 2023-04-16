@@ -1,8 +1,8 @@
 <template>
     <div>
-        <router-link to="/posts">posts</router-link>
+        <router-link :to="{ name: 'person.index' }">Persons</router-link>
+        <router-link :to="{ name: 'person.create' }">Create Person</router-link>
         <router-view></router-view>
-        <router-link to="/tags">tags</router-link>
     </div>
 </template>
 

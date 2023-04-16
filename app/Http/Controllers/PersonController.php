@@ -16,6 +16,11 @@ class PersonController extends Controller
         return Person::all();
     }
 
+    public function show(Person $person): Person
+    {
+        return $person;
+    }
+
     public function store(PersonRequest $request): Person
     {
         $person = Person::create($request->validated());
